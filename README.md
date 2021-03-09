@@ -1,1 +1,2 @@
 # Control_Access_System
+Pentru a imbunatati securitatea in cladirea facultatii in aceasta perioada dificila, ati decis sa implementati un sistem de control acces pentru accesul cu cardul in cladire si birouri. Astfel, sistemul functioneaza pe baza de carduri RFID si la fiecare usa din facultate exista un cititor de carduri care se sincronizeaza cu o baza de date centrala si care controleaza un sistem de inchidere cu electromagnet. Prima etapa de dezvoltare reprezinta implmentarea unui simulator care va fi folosit ulterior si ca analizor de jurnale de activitate. 
