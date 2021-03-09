@@ -1,0 +1,53 @@
+Pentru a imbunatati securitatea in cladirea facultatii in aceasta perioad3 dificila, ati decis sa implementati un sistem de control acces pentru accesul cu cardul In cladire si birouri. Astfel, sistemul functioneaza pe baza de carduri RFID 51 la fiecare u5.1 din facultate exista un cititor de carduri care se sincronizeaza cu o baza de date centrala si care controleaza un sistem de inchidere cu electromagnet. Prima etapa de dezvoltare reprezinta implmentarea unui simulator care va fi folosit ulterior si ca analizor de jurnale de activitate. 
+In cadrul aplicatiei se cere implementarea urmatoarelor clase, metode si operatori: 
+
+1) Clasa AccessPoint, ce modeleaza o usa: 
+1. incapsuleaza urmatoarele date: • mUnlocked de tip bool care reprezinta starea usii (descuiata sau nu)
+2. Implementeaza un constructor fara argumente care sa initializeze campul mUnlocked cu false. 
+3. Implementeaza un getter pentru campul mUnlodced numit isUnlodied. 
+4. Implementeaza metoda void toggle() care schimba starea usii (din incuiat In descuiat Si invers) 
+
+2) Clasa AccessDenledExceptIon extinsa public din std::exceptIon, cu constructor implicit 
+
+3)Clasa User ce modeleaza un utilizator de carduri. 
+1. incapsuleaza urmatoarele date: 
+• mUserld de tip std::string ce reprezinta numele utilizatorului 
+• mCards, de tip stdzset<uin64_t> care reprezinta cardurile utilizatorului. 
+• mAccessPoInts de tip std::vector<AccessPoint•> care reprezinta usile la care utilizatorul are acces. 
+• mActIvIty de tip uint32_t care reprezinta cafe operatii de incuiat/ descuiat a efectuat utiliatorul respectiv. 
+2. Implementeaza un constructor care primeste ca argument un user ID (ca referinta constants de tip std::string) si initializeaza mUserld cu accest cod, mCards si mAccesPoInts cu colectii goale. 
+3. Implementeaza o metoda void toggleDoor(AccessPoInt•) care verifica daca utilizatorul are acces la usa respectiva. Daca are, atunci metoda schimba starea usii (din incuiat in descuiat Si invers). Daca utilizatorul NU are acces la usa respectiva, metoda arunca o exceptie de tip AccessDenledExceptIon. 
+4. Implementeaza o metoda void addAccessPoint(AccessPointl care adauga o up la lista celor la care are acces utilizatorul, daca nu exista deja. Daca exista, nu face nimic. 
+5. Implementeaza o metoda void addCard(uint64t) care adauga un card utilizatorului, data nu exista deja. Daca exista, nu face nimic. Argumentul reprezinta ID-ul cardului.
+6. Implementeami o metoda bool hasCard(uint64_t) care intoarce true daca cardul apartine utilizatorului. Argumentul reprezinta ID-ul cardului. 
+7. Implementeaza o metoda tfint32t countCards() care intoarce numarul de carduri ale utilizatorului. 
+8. Implementeaz3 o metoda ulnt32_t getActIvity0 care intoarce numarul de incuieri 5i descuieri de usa. 
+
+4) Clasa AdminUser care extinde public class User cu singura modificare fiind prin suprascrierea metodei toggleDoor, aceasta nu va arunca niciodata exceptie, pentru ca un AdminUser are implicit acces la toate 
+
+5) Clasa Database ce contine toate datele aplicatiei: 
+1. incapsuleaza urmatoarele date: 
+• mUsers de tip std::map<std::string, Use•> cheia (find ID-ul utilizatorului 
+• mAccessPoints de tip std::unordered_map<uint64i, AccessPoint>, cheia find ID-ul usii 
+2. Implementeaza o metoda void addUser(const std::string &, char) care adauga la baza de date user-ul specificat, data acesta nu exista deja. Primul argument reprezinta ID-ul utilizatorului iar al doilea tipul de user - User sau - AdminUser) 
+3. Implementeaza o metoda void addAccessPoInt(uInt64_t) care adauga o usa la lista globala de usi. Argumentul reprezinta ID-ul uSii. 
+4. Implementeaza o metoda void addCardToUser(const std::s-trIng 84 uInt64_t) care adauga un card unui utilizator. 
+5. Implementeaza o metoda void addAccessPoIntToUser(const std::strIng 8e., uint64_t) care adauga usa Cu codul specificat unui utilizator. Atentie, trebuie sa adaugati user-ului pointer la obiectul stocat in map-ul mAccessPoints. 
+6. Implementeaza o metoda void parseEvent(uInt64 _t, uint64_t) care is ca argumente un ID de card si un ID de usa. Metoda trebuie sa verifice ca exista cardul, apoi sa identifice utilizatorul caruia ii apartine cardul, si apoi sa schimbe starea usii. Daca nu exista cardul, se arunca o exceptie de tip AccessDenledExcegtIon. 
+7. Patru metode corespunzatoare subiectelor 1, 2, 3 si 4: 1. uint322 countUnlockedDoors() 2. uint322 countActivity() 3. std:yector<std::string> findUsersWithNoCards() 4. uint32 t countCards0 
+
+
+Cerinte: 
+1.Afisati cate usi au ramas descuiate la final (dupa rezolvarea tuturor evenimentelor) - un singur numar. 
+2.Afisati numarul total de operatii de deschidere si inchidere pentru toate usile - un singur numar. 
+3.Afisati care utilizatori nu au niciun card activ. Se vor afisa numele utilizatorilor, ordonati alfabetic. pe un singur rand, ID-urile separate prin spatii. Daca nu exista niciun utilizator care nu are niciun card activ, se va afisa un newline.
+4.Afisati numarul total de carduri inrolate in sistem - un singur numar. 
+5.Afisati numarul de incercari de acces fraudulos (cod de card necunoscut sau incercare de dechidere/ inchidere de usa unde utilizatorul nu are acces) -un singur numar. 
+
+Date de intrare:
+Pe prima linie se afla trei valori numerice intregi (r), m si k) fara semn reprezentand: numarul de puncte de acces, numarul de utilizatori si numarul de evenimente ce se vor interpreta. 
+• Pe urmatoarele n linii se afla cate o valoare numerica intreaga pe 64 de biti fara semn ce reprezinta ID-urile punctelor de acces (usilor). 
+• Pe urmatoarele m linii se afla definitia unui utilizator. linia are urmatorul format, unde tip user este carcacter U pentru utilizator obisnuit si A pentru admin. 0 <user_id> dip_user> <c=nr_carduri> <id_card_t > <id_card_c> <u=nr_usi> <id usa 1> <id_usa_u> 
+• Pe urmatoarele k Ifnii se afla evenimente sub forma <access_point_id> <card_id> - care reprezinta o incercare de a incuia/descuia usa cu ID-ul occess_point id cu cardul cord id. 
+• Pe ultima linie se afla unul din numerele 1-5 reprezentand cerinta ce trebuie rezolvata. 
+
